@@ -1,0 +1,35 @@
+{
+  "house": [
+    {
+      "id": 1,
+      "roomsId": 1
+    }
+  ],
+
+  "rooms": [
+    {
+      "id": 1,
+      "houseId": 1,
+      "devicesId": 1,
+      "name": "quarto"
+    }
+  ],
+
+  "devices": [
+    {
+      "id": 1,
+      "houseId": 1,
+      "roomsId": 1,
+      "name": "tv",
+      "status": false
+    },
+
+    {
+      "id": 2,
+      "houseId": 1,
+      "roomsId": 1,
+      "name": "tv",
+      "status": false
+    }
+  ]
+}
