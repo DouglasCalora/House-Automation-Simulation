@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import house from './house'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -13,7 +14,7 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      house
     },
 
     // enable strict mode (adds overhead!)
