@@ -40,8 +40,7 @@ const actions = {
       },
 
       onError () {
-        const model = 'fetchRooms'
-        commit('SET_ERROR', { model })
+        commit('SET_ERROR', { model: 'fetchRooms' })
       }
     })
   },
@@ -53,8 +52,7 @@ const actions = {
       },
 
       onError () {
-        const model = 'fetchDevices'
-        commit('SET_ERROR', { model })
+        commit('SET_ERROR', { model: 'fetchDevices' })
       }
     })
   }
