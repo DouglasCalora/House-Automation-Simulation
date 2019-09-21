@@ -39,7 +39,12 @@ module.exports = function (ctx) {
       all: 'auto',
 
       components: [
-        'QExpansionItem'
+        'QExpansionItem',
+        'QToggle',
+        'QChip',
+        'QBadge',
+        'QItem',
+        'QItemSection',
       ],
       directives: [],
 

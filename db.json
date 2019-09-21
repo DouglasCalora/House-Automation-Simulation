@@ -11,14 +11,14 @@
       "id": 1,
       "houseId": 1,
       "devicesId": 1,
-      "name": "quarto"
+      "name": "Sala"
     },
 
     {
       "id": 2,
       "houseId": 1,
       "devicesId": 2,
-      "name": "quarto"
+      "name": "Quarto"
     }
   ],
 
@@ -27,7 +27,7 @@
       "id": 1,
       "houseId": 1,
       "roomsId": 1,
-      "name": "tv",
+      "name": "Ar condicionado",
       "status": false
     },
 
@@ -35,15 +35,15 @@
       "id": 2,
       "houseId": 1,
       "roomsId": 2,
-      "name": "tv",
-      "status": false
+      "name": "Luz",
+      "status": true
     },
 
     {
       "id": 3,
       "houseId": 1,
       "roomsId": 1,
-      "name": "tv",
+      "name": "Tv",
       "status": false
     }
   ]
