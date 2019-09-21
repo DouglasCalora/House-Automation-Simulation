@@ -1,7 +1,7 @@
 import api from './api'
 
 const remote = async (apiName, { id, payload, onError, onSuccess } = {}) => {
-  if (typeof apiName !== 'string' || !apiName || !api[apiName]) {
+  if (!apiName || typeof apiName !== 'string' || !api[apiName]) {
     return null
   }
 
