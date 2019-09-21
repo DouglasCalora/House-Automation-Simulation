@@ -1,11 +1,25 @@
 <template>
   <q-page class="flex flex-center">
-    {{ rooms}}
+   <q-list bordered :v-for="room in roomsList" class="rounded-borders">
+    <q-expansion-item
+        expand-separator
+        icon="perm_identity"
+        label=""
+        caption="John Doe"
+      >
+        <q-card>
+          <q-card-section>
+            {{room}}
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+   </q-list>
   </q-page>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { consoleObserverToObject } from '../services/helpers'
 
 export default {
   name: 'PageIndex',
@@ -22,12 +36,6 @@ export default {
       }
     }
 
-    // matchRooms () {
-    //   let roomsList = this.rooms.map(room => {
-    //     return this.devices.filter(device => device.roomsId === room.id )
-    //   });
-    //   console.log(roomsList, "<--room list")
-    // }
   },
 
   created () {
@@ -35,28 +43,29 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['rooms', 'devices', 'hasErrors'])
+    ...mapGetters(['rooms', 'devices', 'hasErrors']),
 
     // getRoomsIds () {
     //   return this.rooms.map(item => item.id)
     // }
 
-    // roomsList () {
-    //   let newList = []
-    //   this.rooms.map((room, indexMap) => {
-    //     let device = this.devices.filter(device => device.roomsId === room.id)
-    //     if (device.length > 0) {
-    //       newList = [
-    //         ...newList,
-    //         {
-    //           ...room,
-    //           devices: device
-    //         }
-    //       ]
-    //     }
-    //   })
-    //   return newList
-    // }
+    roomsList () {
+      let newList = []
+      this.rooms.map((room, indexMap) => {
+        let device = this.devices.filter(device => device.roomsId === room.id)
+        if (device.length > 0) {
+          newList = [
+            ...newList,
+            {
+              ...room,
+              devices: device
+            }
+          ]
+        }
+      })
+      consoleObserverToObject(newList)
+      return newList
+    }
   }
 }
 </script>
