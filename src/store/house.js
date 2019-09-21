@@ -1,14 +1,21 @@
-import api from '../services/api'
+import { remote } from '../services/helpers'
 
 const state = {
   rooms: [],
   devices: [],
-  hasErrors: false
+  hasErrors: {
+    fetchRooms: false,
+    deleteRooms: false,
+    fetchDevices: false,
+    deleteDevices: false,
+    updateDevices: false
+  }
 }
 
 const getters = {
   rooms: state => state.rooms,
-  devices: state => state.devices
+  devices: state => state.devices,
+  hasErrors: state => state.hasErrors
 }
 
 const mutations = {
@@ -16,38 +23,40 @@ const mutations = {
     state.rooms = payload
   },
 
-  GET_DEVICES (state, payload) {
-    state.devices = payload
+  GET_DEVICES (state, { data }) {
+    state.devices = data
+  },
+
+  SET_ERROR (state, { model }) {
+    state.hasErrors[model] = true
   }
 }
 
 const actions = {
-  async getRooms ({ commit }, payload) {
-    try {
-      const response = await api['getRooms']()
-      commit('GET_ROOMS', response.data)
-    } catch (errors) {
-      state.hasErrors = true
-    }
+  getRooms ({ commit }, payload) {
+    return remote('getRooms', {
+      onSuccess ({ data }) {
+        commit('GET_ROOMS', { data })
+      },
+
+      onError () {
+        const model = 'fetchRooms'
+        commit('SET_ERROR', { model })
+      }
+    })
   },
 
-  async getDevices ({ commit }, payload) {
-    try {
-      const response = await api['getDevices']()
-      commit('GET_DEVICES', response.data)
-    } catch (errors) {
-      state.hasErrors = true
-    }
-  },
+  getDevices ({ commit }) {
+    return remote('getDevices', {
+      onSuccess ({ data }) {
+        commit('GET_DEVICES', { data })
+      },
 
-  async deletePost ({ commit }, payload) {
-    // await remote('deletePost', payload)
-
-    // commit('GET_POSTS', await remote('getPosts'))
-  },
-
-  async createPost ({ commit }, payload) {
-
+      onError () {
+        const model = 'fetchDevices'
+        commit('SET_ERROR', { model })
+      }
+    })
   }
 }
 

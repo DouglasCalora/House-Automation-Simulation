@@ -1,6 +1,6 @@
 import api from './api'
 
-const remote = async (apiName, id) => {
+const remote = async (apiName, { id, payload, onError, onSuccess } = {}) => {
   if (typeof apiName !== 'string' || !apiName || !api[apiName]) {
     return null
   }
@@ -8,27 +8,19 @@ const remote = async (apiName, id) => {
   let response = {}
 
   try {
-    response = await api[apiName](id)
-  } catch (error) {
-    return false
-  }
+    response = await api[apiName](id || payload, id ? payload : null)
 
-  if (apiStatus(response.status)) {
-    return response.data
+    if (isFunction(onSuccess)) {
+      return onSuccess(response)
+    }
+  } catch (errors) {
+    if (isFunction(onSuccess)) {
+      return onError(errors)
+    }
   }
 }
 
-const apiStatus = (status) => {
-  if (typeof status !== 'number') {
-    return null
-  } else if (status >= 200 && status < 300) {
-    return true
-  } else if (status >= 400 && status < 500) {
-    throw new Error('Client error')
-  } else if (status >= 500) {
-    throw new Error('Server error')
-  }
-}
+const isFunction = fnc => typeof fnc === 'function'
 
 export {
   remote

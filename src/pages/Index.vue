@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    {{ roomsList  }}
+    {{ hasErrors }}
   </q-page>
 </template>
 
@@ -10,19 +10,13 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'PageIndex',
 
-  data () {
-    return {
-      roomsIds: []
-    }
-  },
-
   methods: {
     ...mapActions(['getRooms', 'getDevices']),
 
     async fetch () {
+      this.getRooms()
+      this.getDevices()
       try {
-        await this.getRooms()
-        await this.getDevices()
       } catch (error) {
 
       }
@@ -41,28 +35,28 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['rooms', 'devices']),
+    ...mapGetters(['rooms', 'devices', 'hasErrors'])
 
-    getRoomsIds () {
-      return this.rooms.map(item => item.id)
-    },
+    // getRoomsIds () {
+    //   return this.rooms.map(item => item.id)
+    // }
 
-    roomsList () {
-      let newList = []
-      this.rooms.map((room, indexMap) => {
-        let device = this.devices.filter(device => device.roomsId === room.id)
-        if (device.length > 0) {
-          newList = [
-            ...newList,
-            {
-              ...room,
-              devices: device
-            }
-          ]
-        }
-      })
-      return newList
-    }
+    // roomsList () {
+    //   let newList = []
+    //   this.rooms.map((room, indexMap) => {
+    //     let device = this.devices.filter(device => device.roomsId === room.id)
+    //     if (device.length > 0) {
+    //       newList = [
+    //         ...newList,
+    //         {
+    //           ...room,
+    //           devices: device
+    //         }
+    //       ]
+    //     }
+    //   })
+    //   return newList
+    // }
   }
 }
 </script>
