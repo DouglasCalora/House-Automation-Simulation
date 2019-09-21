@@ -19,8 +19,8 @@ const getters = {
 }
 
 const mutations = {
-  GET_ROOMS (state, payload) {
-    state.rooms = payload
+  GET_ROOMS (state, { data }) {
+    state.rooms = data
   },
 
   GET_DEVICES (state, { data }) {
