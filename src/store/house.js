@@ -33,7 +33,7 @@ const mutations = {
 }
 
 const actions = {
-  getRooms ({ commit }, payload) {
+  getRooms ({ commit }) {
     return remote('getRooms', {
       onSuccess ({ data }) {
         commit('GET_ROOMS', { data })
