@@ -22,7 +22,7 @@ const remote = async (apiName, { id, payload, onError, onSuccess } = {}) => {
 
 const isFunction = fnc => typeof fnc === 'function'
 
-const consoleObserverToObject = (observer) => console.log(JSON.parse(JSON.stringify(observer)))
+const consoleObserverToObject = (observer, text) => console.log(JSON.parse(JSON.stringify(observer)), `<-- ${text}`)
 
 export {
   remote,

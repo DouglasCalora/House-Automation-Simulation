@@ -5,7 +5,6 @@
       "roomsId": 1
     }
   ],
-
   "rooms": [
     {
       "id": 1,
@@ -13,7 +12,6 @@
       "devicesId": 1,
       "name": "Sala"
     },
-
     {
       "id": 2,
       "houseId": 1,
@@ -21,30 +19,27 @@
       "name": "Quarto"
     }
   ],
-
   "devices": [
     {
       "id": 1,
       "houseId": 1,
       "roomsId": 1,
       "name": "Ar condicionado",
-      "status": false
+      "status": true
     },
-
     {
       "id": 2,
       "houseId": 1,
       "roomsId": 2,
       "name": "Luz",
-      "status": true
+      "status": false
     },
-
     {
       "id": 3,
       "houseId": 1,
       "roomsId": 1,
       "name": "Tv",
-      "status": false
+      "status": true
     }
   ]
 }

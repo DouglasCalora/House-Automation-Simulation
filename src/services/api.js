@@ -7,7 +7,11 @@ export default {
     return axios.get('rooms')
   },
 
-  getDevices () {
+  async getDevices () {
     return axios.get(`devices`)
+  },
+
+  async changeStatusDevice (data) {
+    return axios.put(`devices/${data.id}`, data)
   }
 }

@@ -28,9 +28,14 @@
                   :label="device.name"
                   unchecked-icon="clear"
                   style="margin-right: 10px;"
+                  @input="(value) => onChangeStatusDevice(value, device)"
                 />
-                <q-badge transparent align="middle" :color="device.status | valueStatus('colorStatus')">
-                  {{device.status | valueStatus(statusValueString)}}
+                <q-badge
+                  transparent
+                  align="middle"
+                  :color="device.status | valueStatus('colorStatus')"
+                >
+                  {{device.status | valueStatus('statusValueString')}}
                 </q-badge>
               </div>
               <div>
@@ -58,7 +63,7 @@
           </q-card>
       </q-expansion-item>
       <q-item>
-        <q-item-section>
+        <q-item-section top>
           <div class="row justify-center">
             <q-btn
               outline
@@ -93,19 +98,28 @@ export default {
   name: 'PageIndex',
 
   methods: {
-    ...mapActions(['getRooms', 'getDevices']),
+    ...mapActions(['getRooms', 'getDevices', 'changeStatusDevice']),
 
     async fetch () {
       this.getRooms()
       this.getDevices()
       try {
       } catch (error) {
-
+        console.log(error)
       }
     },
 
     onClickDeleteDevice (device) {
       console.log(device, '<-- device')
+    },
+
+    onChangeStatusDevice (value, device) {
+      let data = {
+        ...device,
+        status: value
+      }
+      consoleObserverToObject(data, 'put device')
+      this.changeStatusDevice(data)
     }
 
   },
@@ -127,10 +141,6 @@ export default {
   computed: {
     ...mapGetters(['rooms', 'devices', 'hasErrors']),
 
-    // getRoomsIds () {
-    //   return this.rooms.map(item => item.id)
-    // }
-
     roomsList: function () {
       let newList = []
       this.rooms.map((room, indexMap) => {
@@ -145,7 +155,7 @@ export default {
           ]
         }
       })
-      consoleObserverToObject(newList)
+      consoleObserverToObject(newList, 'Lista relacionada')
       return newList
     }
   }

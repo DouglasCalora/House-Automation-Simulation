@@ -1,4 +1,4 @@
-import { remote } from '../services/helpers'
+import { remote, consoleObserverToObject } from '../services/helpers'
 
 const state = {
   rooms: [],
@@ -29,6 +29,12 @@ const mutations = {
 
   SET_ERROR (state, { model }) {
     state.hasErrors[model] = true
+  },
+
+  PUT_DEVICES (state, { data }) {
+    let indexDeviceChanged = state.devices.findIndex(device => device.id === data.id)
+    state.devices[indexDeviceChanged] = data
+    consoleObserverToObject(state.devices, '<-- devices')
   }
 }
 
@@ -41,6 +47,20 @@ const actions = {
 
       onError () {
         commit('SET_ERROR', { model: 'fetchRooms' })
+      }
+    })
+  },
+
+  changeStatusDevice ({ commit }, payload) {
+    return remote('changeStatusDevice', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('PUT_DEVICES', { data })
+      },
+
+      onError () {
+        commit('SET_ERROR', { model: 'fetchDevices' })
       }
     })
   },
