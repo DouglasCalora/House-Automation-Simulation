@@ -9,43 +9,18 @@
     {
       "id": 1,
       "houseId": 1,
-      "devicesId": 1,
       "name": "quarto"
     },
     {
-      "id": 2,
-      "houseId": 1,
-      "devicesId": 2,
-      "name": "quarto"
-    },
-    {
-      "name": "cozina",
+      "name": "comodoooooooo",
       "id": 3
     },
     {
-      "name": "vai mudar",
+      "name": "comodo novo gahahhahaha",
       "id": 4
-    },
-    {
-      "name": "nao mudou tururu",
-      "id": 5
     }
   ],
   "devices": [
-    {
-      "id": 1,
-      "houseId": 1,
-      "roomsId": 1,
-      "name": "tv",
-      "status": false
-    },
-    {
-      "id": 2,
-      "houseId": 1,
-      "roomsId": 2,
-      "name": "tv",
-      "status": false
-    },
     {
       "id": 3,
       "houseId": 1,
@@ -54,21 +29,24 @@
       "status": true
     },
     {
-      "name": "tv",
-      "roomsId": 3,
+      "name": "dispositivo 2",
+      "roomsId": 1,
+      "houseId": 1,
       "id": 4,
+      "status": true
+    },
+    {
+      "name": "meu novo dispositivo",
+      "roomsId": 1,
+      "houseId": 1,
+      "id": 5,
       "status": false
     },
     {
-      "name": "tv",
+      "name": "dispositivo novo",
       "roomsId": 4,
-      "id": 5
-    },
-    {
-      "name": "tv",
-      "roomsId": 5,
-      "id": 6,
-      "status": true
+      "houseId": 1,
+      "id": 6
     }
   ]
 }

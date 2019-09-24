@@ -53,6 +53,7 @@
                   rounded
                   color="primary"
                   label="Adicionar dispositivo"
+                  @click="onClickAddDevice(room.id)"
                   size="10px"
                   style="margin-left: 13px; margin-top: 10px;"
                   icon="add"
@@ -68,6 +69,7 @@
                 outline
                 rounded
                 color="red"
+                 @click="deleteRoom(room.id)"
                 label="Deletar cômodo"
                 size="10px"
                 icon="delete"
@@ -87,6 +89,18 @@
         icon="add"
       />
       </div>
+
+    <q-dialog v-model="dialogDevice">
+      <q-card class="q-pa-md" style="min-width: 400px">
+        <q-form @submit="submitDevice()">
+          <q-input v-model="fieldDevice.name" label="Nome do dispositivo"/>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn type="submit" flat label="Criar" v-close-popup />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
 
     <q-dialog v-model="dialogRoom">
       <q-card class="q-pa-md" style="min-width: 400px">
@@ -111,6 +125,8 @@ export default {
   data () {
     return {
       dialogRoom: false,
+      dialogDevice: false,
+      roomIdSelected: 0,
       roomsId: 0,
       allowed: false,
 
@@ -119,7 +135,7 @@ export default {
       },
 
       fieldDevice: {
-        name: 'tv',
+        name: '',
         roomsId: null
       }
     }
@@ -131,9 +147,15 @@ export default {
       'getDevices',
       'changeStatusDevice',
       'deleteDevice',
+      'deleteRoom',
       'addRoom',
       'addDevice'
     ]),
+
+    onClickAddDevice (roomId) {
+      this.dialogDevice = true
+      this.roomIdSelected = roomId
+    },
 
     async fetch () {
       await this.getDevices()
@@ -154,6 +176,26 @@ export default {
       this.changeStatusDevice(payload)
     },
 
+    resetForm () {
+      this.fieldRoom = {
+        name: ''
+      }
+      this.fieldDevice = {
+        name: '',
+        roomsId: null
+      }
+    },
+
+    submitDevice () {
+      const payload = {
+        ...this.fieldDevice,
+        roomsId: this.roomIdSelected,
+        houseId: 1
+      }
+      this.addDevice(payload)
+      this.resetForm()
+    },
+
     submit () {
       this.addRoom(this.fieldRoom)
 
@@ -164,6 +206,7 @@ export default {
 
         this.allowed = false
       }
+      this.resetForm()
     }
   },
 
@@ -211,6 +254,7 @@ export default {
           newList.push(room)
         }
       })
+      console.log(newList, '<--newList')
       return newList
     }
   }

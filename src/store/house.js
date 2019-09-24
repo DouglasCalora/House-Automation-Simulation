@@ -33,8 +33,7 @@ const mutations = {
   },
 
   ADD_DEVICE (state, { data }) {
-    const index = state.devices.findIndex(device => device.id === data.id)
-    Vue.set(state.devices, index, data)
+    state.devices.push(data)
   },
 
   SET_ERROR (state, { model }) {
@@ -47,8 +46,13 @@ const mutations = {
   },
 
   DELETE_DEVICE (state, { data }) {
-    const index = state.devices.findIndex(device => device.id === data.id)
+    const index = state.devices.findIndex(device => device.id === data)
     Vue.delete(state.devices, index)
+  },
+
+  DELETE_ROOM (state, { data }) {
+    const index = state.rooms.findIndex(room => room.id === data)
+    Vue.delete(state.rooms, index)
   }
 }
 
@@ -104,7 +108,17 @@ const actions = {
       payload,
 
       onSuccess ({ data }) {
-        commit('DELETE_DEVICE', { data })
+        commit('DELETE_DEVICE', { data: payload })
+      }
+    })
+  },
+
+  deleteRoom ({ commit }, payload) {
+    return remote('deleteRoom', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('DELETE_ROOM', { data: payload })
       }
     })
   },

@@ -24,6 +24,10 @@ export default {
   },
 
   deleteDevice (id) {
-    return axios.put(`devices/${id}`)
+    return axios.delete(`devices/${id}`)
+  },
+
+  deleteRoom (id) {
+    return axios.delete(`rooms/${id}`)
   }
 }
