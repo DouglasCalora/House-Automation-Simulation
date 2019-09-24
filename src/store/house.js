@@ -1,4 +1,5 @@
 import { remote } from '../services/helpers'
+import Vue from 'vue'
 
 const state = {
   rooms: [],
@@ -23,12 +24,31 @@ const mutations = {
     state.rooms = data
   },
 
+  ADD_ROOM (state, { data }) {
+    state.rooms.push(data)
+  },
+
   GET_DEVICES (state, { data }) {
     state.devices = data
   },
 
+  ADD_DEVICE (state, { data }) {
+    const index = state.devices.findIndex(device => device.id === data.id)
+    Vue.set(state.devices, index, data)
+  },
+
   SET_ERROR (state, { model }) {
     state.hasErrors[model] = true
+  },
+
+  PUT_DEVICES (state, { data }) {
+    const index = state.devices.findIndex(device => device.id === data.id)
+    Vue.set(state.devices, index, data)
+  },
+
+  DELETE_DEVICE (state, { data }) {
+    const index = state.devices.findIndex(device => device.id === data.id)
+    Vue.delete(state.devices, index)
   }
 }
 
@@ -41,6 +61,50 @@ const actions = {
 
       onError () {
         commit('SET_ERROR', { model: 'fetchRooms' })
+      }
+    })
+  },
+
+  addRoom ({ commit }, payload) {
+    return remote('addRoom', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('ADD_ROOM', { data })
+      }
+    })
+  },
+
+  addDevice ({ commit }, payload) {
+    return remote('addDevice', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('ADD_DEVICE', { data })
+      }
+    })
+  },
+
+  changeStatusDevice ({ commit }, payload) {
+    return remote('changeStatusDevice', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('PUT_DEVICES', { data })
+      },
+
+      onError () {
+        commit('SET_ERROR', { model: 'fetchDevices' })
+      }
+    })
+  },
+
+  deleteDevice ({ commit }, payload) {
+    return remote('deleteDevice', {
+      payload,
+
+      onSuccess ({ data }) {
+        commit('DELETE_DEVICE', { data })
       }
     })
   },

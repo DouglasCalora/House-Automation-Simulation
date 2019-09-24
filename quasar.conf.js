@@ -39,9 +39,19 @@ module.exports = function (ctx) {
       all: 'auto',
 
       components: [
-        'QExpansionItem'
+        'QExpansionItem',
+        'QToggle',
+        'QChip',
+        'QBadge',
+        'QItem',
+        'QItemSection',
+        'QTooltip',
+        'QDialog',
+        'QCard'
       ],
-      directives: [],
+      directives: [
+        'ClosePopup'
+      ],
 
       // Quasar plugins
       plugins: [
