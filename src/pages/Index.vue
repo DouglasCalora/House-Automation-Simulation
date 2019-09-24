@@ -1,6 +1,5 @@
 <template>
   <q-page class="column items-center" padding>
-    {{roomsList}}
     <div class="column items-center" style="max-width: 600px; width: 100%;">
       <q-list
         bordered
@@ -159,9 +158,9 @@ export default {
       this.addRoom(this.fieldRoom)
 
       if (this.allowed) {
-        this.addDevice({
-          ...this.fieldDevice, roomsId: this.roomsId + 1
-        })
+        // this.addDevice({
+        //   ...this.fieldDevice, roomsId: this.roomsId + 1
+        // })
 
         this.allowed = false
       }
@@ -208,6 +207,8 @@ export default {
               devices: device
             }
           ]
+        } else if (room.id !== device.roomsId) {
+          newList.push(room)
         }
       })
       return newList

@@ -37,7 +37,7 @@
       "houseId": 1,
       "roomsId": 1,
       "name": "tv",
-      "status": true
+      "status": false
     },
     {
       "id": 2,
@@ -51,12 +51,13 @@
       "houseId": 1,
       "roomsId": 1,
       "name": "tv",
-      "status": false
+      "status": true
     },
     {
       "name": "tv",
       "roomsId": 3,
-      "id": 4
+      "id": 4,
+      "status": false
     },
     {
       "name": "tv",
@@ -66,7 +67,8 @@
     {
       "name": "tv",
       "roomsId": 5,
-      "id": 6
+      "id": 6,
+      "status": true
     }
   ]
 }
